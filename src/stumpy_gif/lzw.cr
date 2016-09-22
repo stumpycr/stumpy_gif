@@ -1,5 +1,3 @@
-require "./bit_wrapper"
-
 module StumpyGIF
   class LZW
     MAX_DICT = 4096

@@ -53,53 +53,5 @@ module StumpyGIF
       # Empty block as terminator
       io.write_bytes(0_u8, IO::ByteFormat::LittleEndian)
     end
-
-    def read(io)
-      @descriptor.read(io)
-      @local_color_table.read(@descriptor.lct_size, io) if @descriptor.lct_flag
-
-      # The image data for a table based image consists of a
-      # sequence of sub-blocks, of size at most 255 bytes each, containing an
-      #  index into the active color table, for each pixel in the image.  Pixel
-      #  indices are in order of left to right and from top to bottom.  Each index
-      #  must be within the range of the size of the active color table, starting
-      #  at 0. The sequence of indices is encoded using the LZW Algorithm with
-      #  variable-length code, as described in Appendix F
-
-      lzw_min_code_size = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-      raw = [] of UInt8
-
-      loop do
-        block_size = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-        break if block_size == 0
-
-        block = Slice(UInt8).new(block_size)
-        io.read_fully(block)
-        raw += block.to_a
-      end
-
-      lzw = LZW.new(lzw_min_code_size)
-      data = lzw.decode(raw)
-
-      @canvas = StumpyCore::Canvas.new(@descriptor.width.to_i32, @descriptor.height.to_i32)
-
-      x = 0
-      y = 0
-      data.each do |index|
-        if @descriptor.lct_flag
-          color = @local_color_table[index]
-        else
-          color = @global_color_table[index]
-        end
-
-        @canvas[x, y] = color
-
-        x += 1
-        if x == @descriptor.width
-          x = 0
-          y += 1
-        end
-      end
-    end
   end
 end

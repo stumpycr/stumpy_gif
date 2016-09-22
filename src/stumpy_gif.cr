@@ -1,5 +1,4 @@
 require "stumpy_core"
-require "stumpy_png"
 require "./stumpy_gif/lzw"
 require "./stumpy_gif/logical_screen_descriptor"
 require "./stumpy_gif/color_table"
@@ -10,14 +9,6 @@ require "./stumpy_gif/websafe"
 include StumpyCore
 
 module StumpyGIF
-  def self.read(filename)
-    gif = GIF.new
-    File.open(filename) do |io|
-      gif.read(io)
-    end
-    gif
-  end
-
   def self.write(frames, filename)
     canvas = frames.first
     gif = GIF.new
@@ -89,57 +80,6 @@ module StumpyGIF
 
       # Gif terminator
       io.write_bytes(0x3b_u8, IO::ByteFormat::LittleEndian)
-    end
-
-    def read(io : IO)
-      # The gif header is 6 bytes long,
-      # so we check the 4 bytes of it (UInt32)
-      # and then the rest (2 bytes, UInt16)
-      header_1 = io.read_bytes(UInt32, IO::ByteFormat::BigEndian)
-      header_2 = io.read_bytes(UInt16, IO::ByteFormat::BigEndian)
-      raise "Invalid header" if header_1 != HEADER_1
-      raise "Invalid header" if header_2 != HEADER_2_89 && header_2 != HEADER_2_87
-
-      @logical_screen_descriptor.read(io)
-
-      if @logical_screen_descriptor.gct_flag
-        @global_color_table.read(@logical_screen_descriptor.gct_size, io)
-      end
-
-      loop do
-        begin
-          type = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-          if type == 0x2c
-            puts "Image"
-            image = Image.new(@global_color_table)
-            image.read(io)
-            @frames << image
-          elsif type == 0x21 # Extension block
-            ext_type = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-            if ext_type == 0xf9 # Graphic Control Extension
-              puts "GCE"
-              gce = Extension::GraphicControl.new
-              gce.read(io)
-
-              @gces << gce
-            elsif ext_type == 0xff
-              puts "Netscape"
-              nets = Extension::Netscape.new
-              nets.read(io)
-            else
-              # TODO: try to handle unknown extensions
-              raise "Unknown extension type: #{ext_type}"
-            end
-          elsif type == 0x3b
-            break
-          else
-            raise "Invalid byte: 0x#{type.to_s(16)}"
-          end
-        rescue e : IO::EOFError
-          raise "Error, EOF"
-          break
-        end
-      end
     end
   end
 end

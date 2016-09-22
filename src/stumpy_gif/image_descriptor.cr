@@ -37,31 +37,6 @@ module StumpyGIF
       end
     end
 
-    def read(io)
-      @left_position = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
-      @top_position =  io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
-      @width =         io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
-      @height =        io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
-      packed_fields =  io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-
-      # Local Color Table Flag - Indicates the presence of a Local Color
-      # Table immediately following this Image Descripto
-      @lct_flag = (packed_fields >> 7) == 1
-
-      # Interlace Flag - Indicates if the image is interlaced.
-      @interlace_flag = ((packed_fields >> 6) & 0b1) == 1
-      raise "Unsupported interlace_flag: #{@interlace_flag}" if @interlace_flag
-
-      # Sort Flag
-      # (can be ignored, just like the gct sort flag)
-      @sort_flag = ((packed_fields >> 5) & 0b1) == 1
-
-      # Reserved, 2 bits
-
-      # Size of Local Color Table
-      @lct_size_value = packed_fields & 0b111
-    end
-
     def write(io)
       io.write_bytes(@left_position, IO::ByteFormat::LittleEndian)
       io.write_bytes(@top_position, IO::ByteFormat::LittleEndian)

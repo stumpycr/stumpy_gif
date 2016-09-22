@@ -5,25 +5,6 @@ module StumpyGIF
       def initialize(@loop_count = 0_u16)
       end
 
-      def read(io)
-        size = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-        raise "Invalid netscape extension size: #{size}" if size != 11
-
-        # Skip application name and auth code
-        io.skip(11)
-
-        sub_size = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-        raise "Invalid netscape extension subblock size: #{sub_size}" if sub_size != 3
-
-        sub_type = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-        raise "Invalid netscape extension subblock type: #{sub_type}" if sub_type != 1
-
-        @loop_count = io.read_bytes(UInt16, IO::ByteFormat::LittleEndian)
-
-        terminator = io.read_bytes(UInt8, IO::ByteFormat::LittleEndian)
-        raise "Invalid block terminator: #{terminator}" if terminator != 0
-      end
-
       def write(io)
         puts "Writing netscape"
         # Extension header

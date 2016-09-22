@@ -9,10 +9,6 @@ module StumpyGIF
       @colors = [] of RGBA
     end
 
-    def read(size, io)
-      @colors = Array(StumpyCore::RGBA).new(size) { Utils.read_rgb(io) }
-    end
-
     def write(io)
       @colors.each do |color|
         Utils.write_rgb(io, color)
