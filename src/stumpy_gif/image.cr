@@ -37,10 +37,11 @@ module StumpyGIF
 
       lzw = LZW.new(lzw_min_code_size)
 
-      wrapper = BitWrapper.new
-      wrapper.write_bits(lzw.encode(output))
+      # wrapper = BitWrapper.new
+      # wrapper.write_bits(lzw.encode(output))
 
-      bytes = wrapper.bytes
+      # bytes = wrapper.bytes
+      bytes = lzw.encode(output)
 
       bytes.each_slice(255) do |block|
         io.write_bytes(block.size.to_u8, IO::ByteFormat::LittleEndian)
