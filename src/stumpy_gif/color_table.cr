@@ -1,12 +1,14 @@
 require "stumpy_core"
+require "set"
 require "./utils"
+require "./median_split"
 
 module StumpyGIF
   class ColorTable
     property colors : Array(StumpyCore::RGBA)
 
     def initialize
-      @colors = [] of RGBA
+      @colors = [] of StumpyCore::RGBA
     end
 
     def write(io)
@@ -31,6 +33,29 @@ module StumpyGIF
       end
 
       @colors.index(closest) || 0
+    end
+
+    def self.median_split(frames)
+      unique_colors = Set(StumpyCore::RGBA).new
+
+      frames.each do |frame|
+        frame.pixels.each do |color|
+          unique_colors.add(color)
+        end
+      end
+
+      ct = ColorTable.new
+      ct.colors = MedianSplit.split(unique_colors.to_a).map do |split_colors|
+        min, max = MedianSplit.min_max(split_colors)
+        StumpyCore::RGBA.new(
+          min.r + (max.r - min.r) / 2,
+          min.g + (max.g - min.g) / 2,
+          min.b + (max.b - min.b) / 2,
+          UInt16::MAX
+        )
+      end
+
+      ct
     end
   end
 end

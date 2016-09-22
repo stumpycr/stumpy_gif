@@ -33,10 +33,19 @@ end
 StumpyGIF.write(frames, "rainbow.gif")
 ```
 
-![GIF image with an animated color gradient](examples/rainbow.gif)
+![GIF image with an animated color gradient](examples/rainbow_websafe.gif)
+Websafe color quantization
+
+![GIF image with an animated color gradient](examples/rainbow_median_split.gif)
+Median split color quantization
 
 (See `examples/` for more examples)
 
 ## Writing
 
 __TODO: Write description__
+
+## Color Quantization Methods
+
+* Use Websafe colors
+* Median Split

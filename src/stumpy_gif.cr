@@ -9,15 +9,22 @@ require "./stumpy_gif/websafe"
 include StumpyCore
 
 module StumpyGIF
-  def self.write(frames, filename)
+  def self.write(frames, filename, quantization = :websafe)
     canvas = frames.first
     gif = GIF.new
     gif.logical_screen_descriptor.width = canvas.width.to_u16
     gif.logical_screen_descriptor.height = canvas.height.to_u16
     gif.logical_screen_descriptor.gct_flag = true
 
-    gct = ColorTable.new
-    gct.colors = Websafe.colors
+    case quantization
+    when :websafe
+      gct = ColorTable.new
+      gct.colors = Websafe.colors
+    when :median_split
+      gct = ColorTable.median_split(frames)
+    else
+      raise "Unknown quantization method: #{quantization}"
+    end
 
     gif.global_color_table = gct
 

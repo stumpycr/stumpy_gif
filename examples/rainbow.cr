@@ -15,4 +15,5 @@ frames = [] of StumpyCore::Canvas
   frames << canvas
 end
 
-StumpyGIF.write(frames, "rainbow.gif")
+StumpyGIF.write(frames, "rainbow_websafe.gif")
+StumpyGIF.write(frames, "rainbow_median_split.gif", :median_split)
