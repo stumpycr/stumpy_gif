@@ -24,15 +24,13 @@ module StumpyGIF
     end
 
     def closest_index(color)
-      return @colors.index(Websafe.make_websafe(color)) || 0
-      # TODO: fix this function
-      # closest = @colors.min_by do |other|
-        # (other.r.to_i32 - color.r.to_i32) ** 2 +
-        # (other.g.to_i32- color.g.to_i32) ** 2 +
-        # (other.b.to_i32 - color.b.to_i32) ** 2
-      # end
+      closest = @colors.min_by do |other|
+        (other.r.to_i64 - color.r.to_i64) ** 2 +
+        (other.g.to_i64- color.g.to_i64) ** 2 +
+        (other.b.to_i64 - color.b.to_i64) ** 2
+      end
 
-      # @colors.index(closest) || 0
+      @colors.index(closest) || 0
     end
   end
 end

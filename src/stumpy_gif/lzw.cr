@@ -49,7 +49,6 @@ module StumpyGIF
           else
             if @next_code >= (1 << @code_size)
               @code_size += 1
-              puts "Increasing code size"
             end
             @code_table[cur_key] = @next_code
             @next_code += 1

@@ -6,7 +6,6 @@ module StumpyGIF
       end
 
       def write(io)
-        puts "Writing netscape"
         # Extension header
         io.write_bytes(0x21_u8, IO::ByteFormat::LittleEndian)
         io.write_bytes(0xff_u8, IO::ByteFormat::LittleEndian)

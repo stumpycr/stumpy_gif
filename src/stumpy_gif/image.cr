@@ -17,7 +17,6 @@ module StumpyGIF
     end
 
     def write(io)
-      puts "Writing image"
       io.write_bytes(0x2c_u8, IO::ByteFormat::LittleEndian)
       @descriptor.write(io)
       @local_color_table.write(io) if @descriptor.lct_flag
