@@ -9,7 +9,7 @@ require "./stumpy_gif/websafe"
 include StumpyCore
 
 module StumpyGIF
-  def self.write(frames, filename, quantization = :websafe)
+  def self.write(frames, filename, delay_time = 10, quantization = :websafe)
     canvas = frames.first
     gif = GIF.new
     gif.logical_screen_descriptor.width = canvas.width.to_u16
@@ -36,7 +36,7 @@ module StumpyGIF
       gif.frames << image
 
       gce = Extension::GraphicControl.new
-      gce.delay_time = 10_u16
+      gce.delay_time = delay_time.to_u16
 
       gif.gces << gce
     end
