@@ -41,11 +41,12 @@ Median split color quantization
 
 (See `examples/` for more examples)
 
-## Writing
-
-__TODO: Write description__
-
 ## Color Quantization Methods
 
 * Use Websafe colors
 * Median Split
+* NeuQuant
+
+## References
+
+* [Kohonen Neural Networks for Optimal Colour Quantization](http://members.ozemail.com.au/~dekker/NeuQuant.pdf)

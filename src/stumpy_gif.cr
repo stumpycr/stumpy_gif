@@ -5,6 +5,7 @@ require "./stumpy_gif/color_table"
 require "./stumpy_gif/image"
 require "./stumpy_gif/extension/*"
 require "./stumpy_gif/websafe"
+require "./stumpy_gif/neuquant"
 
 include StumpyCore
 
@@ -22,6 +23,9 @@ module StumpyGIF
       gct.colors = Websafe.colors
     when :median_split
       gct = ColorTable.median_split(frames)
+    when :neuquant
+      gct = ColorTable.new
+      gct.colors = NeuQuant.new(frames).colors.to_a
     else
       raise "Unknown quantization method: #{quantization}"
     end
