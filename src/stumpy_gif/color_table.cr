@@ -55,6 +55,10 @@ module StumpyGIF
         )
       end
 
+      while ct.colors.size < 256
+        ct.colors << StumpyCore::RGBA.new(0_u16, 0_u16, 0_u16, UInt16::MAX)
+      end
+
       ct
     end
   end
