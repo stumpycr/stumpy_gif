@@ -22,7 +22,7 @@ module StumpyGIF
       n = list.size
       half = n / 2
 
-      if depth == 0
+      if depth == 0 || n == 2
         result << sorted[0...half]
         result << sorted[half..-1]
       elsif half == 1
