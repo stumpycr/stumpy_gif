@@ -1,65 +1,33 @@
-require "stumpy_core"
-require "set"
-require "./utils"
-require "./median_split"
+class StumpyGIF::ColorTable
+  getter colors : Slice(RGBA)
 
-module StumpyGIF
-  class ColorTable
-    property colors : Array(StumpyCore::RGBA)
+  def initialize
+    @colors = Slice(RGBA).new(256) { RGBA.new(0_u16, 0_u16, 0_u16, 0_u16) }
+  end
 
-    def initialize
-      @colors = [] of StumpyCore::RGBA
+  def write(io)
+    @colors.each do |color|
+      r, g, b = color.to_rgb8
+
+      io.write_bytes(r, IO::ByteFormat::LittleEndian)
+      io.write_bytes(g, IO::ByteFormat::LittleEndian)
+      io.write_bytes(b, IO::ByteFormat::LittleEndian)
+    end
+  end
+
+  def colors=(colors)
+    colors.each_with_index do |color, index|
+      @colors[index] = color
+    end
+  end
+
+  def closest_index(color)
+    closest = @colors.min_by do |other|
+      (other.r.to_i64 - color.r.to_i64) ** 2 +
+      (other.g.to_i64 - color.g.to_i64) ** 2 +
+      (other.b.to_i64 - color.b.to_i64) ** 2
     end
 
-    def write(io)
-      @colors.each do |color|
-        Utils.write_rgb(io, color)
-      end
-    end
-
-    def [](index)
-      @colors[index]
-    end
-
-    def []=(index, value)
-      @colors[index] = value
-    end
-
-    def closest_index(color)
-      closest = @colors.min_by do |other|
-        (other.r.to_i64 - color.r.to_i64) ** 2 +
-        (other.g.to_i64- color.g.to_i64) ** 2 +
-        (other.b.to_i64 - color.b.to_i64) ** 2
-      end
-
-      @colors.index(closest) || 0
-    end
-
-    def self.median_split(frames)
-      unique_colors = Set(StumpyCore::RGBA).new
-
-      frames.each do |frame|
-        frame.pixels.each do |color|
-          unique_colors.add(color)
-        end
-      end
-
-      ct = ColorTable.new
-      ct.colors = MedianSplit.split(unique_colors.to_a).map do |split_colors|
-        min, max = MedianSplit.min_max(split_colors)
-        StumpyCore::RGBA.new(
-          min.r + (max.r - min.r) / 2,
-          min.g + (max.g - min.g) / 2,
-          min.b + (max.b - min.b) / 2,
-          UInt16::MAX
-        )
-      end
-
-      while ct.colors.size < 256
-        ct.colors << StumpyCore::RGBA.new(0_u16, 0_u16, 0_u16, UInt16::MAX)
-      end
-
-      ct
-    end
+    @colors.index(closest) || 0
   end
 end

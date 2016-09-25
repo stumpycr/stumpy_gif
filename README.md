@@ -4,8 +4,9 @@ __This is alpha software, it might not work at all or eat up tons of memory__
 
 ## Interface
 
-* `StumpyGIF.write(frames : Array(Canvas), path)` saves a list of frames (canvasses) as a GIF image file
-* `StumpyGIF::GIF`, helper class to store some state while parsing GIF files
+* `StumpyGIF.write(frames : Array(Canvas), path, delay_between_frames = 10)`
+  saves a list of frames (canvasses) as a GIF image file,
+  `delay_between_frames` is in 1/100 of a second
 * `Canvas` and `RGBA` from [stumpy_core](https://github.com/l3kn/stumpy_core)
 
 ## Usage
@@ -14,15 +15,16 @@ __This is alpha software, it might not work at all or eat up tons of memory__
 
 ``` crystal
 require "stumpy_gif"
+include StumpyGIF
 
-frames = [] of StumpyCore::Canvas
+frames = [] of Canvas
 
 (0..5).each do |z|
-  canvas = StumpyCore::Canvas.new(256, 256)
+  canvas = Canvas.new(256, 256)
 
   (0..255).each do |x|
     (0..255).each do |y|
-      color = StumpyCore::RGBA.from_rgb_n([x, y, z * 51], 8)
+      color = RGBA.from_rgb_n([x, y, z * 51], 8)
       canvas[x, y] = color
     end
   end
