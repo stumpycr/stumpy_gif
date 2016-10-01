@@ -1,7 +1,5 @@
 # stumpy_gif
 
-__This is alpha software, it might not work at all or eat up tons of memory__
-
 ## Interface
 
 * `StumpyGIF.write(frames : Array(Canvas), path, delay_between_frames = 10)`
