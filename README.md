@@ -5,7 +5,7 @@
 * `StumpyGIF.write(frames : Array(Canvas), path, delay_between_frames = 10)`
   saves a list of frames (canvasses) as a GIF image file,
   `delay_between_frames` is in 1/100 of a second
-* `Canvas` and `RGBA` from [stumpy_core](https://github.com/l3kn/stumpy_core)
+* `Canvas` and `RGBA` from [stumpy_core](https://github.com/stumpycr/stumpy_core)
 
 ## Usage
 
