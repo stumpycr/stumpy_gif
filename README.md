@@ -54,8 +54,8 @@ Left to right: Websafe, median split, NeuQuant
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars1.githubusercontent.com/u/2060269?v=4" width="100px;"/><br /><sub>Leon</sub>](http://leonrische.me)<br /> |
-| :---: |
+| [<img src="https://avatars1.githubusercontent.com/u/2060269?v=4" width="100px;"/><br /><sub>Leon</sub>](http://leonrische.me)<br /> | [<img src="https://avatars1.githubusercontent.com/u/26842759?v=4" width="100px;"/><br /><sub>Sam</sub>](https://github.com/Demonstrandum)<br /> |
+| :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
 
