@@ -1,5 +1,5 @@
 name: stumpy_gif
-version: 0.1.0
+version: 0.1.1
 
 authors:
   - Leon Rische <hello@l3kn.de>
@@ -7,7 +7,7 @@ authors:
 dependencies:
   stumpy_core:
     git: https://github.com/stumpycr/stumpy_core.git
-    version: ~> 1.7.0
+    version: ~> 1.8
 
 development_dependencies:
   minitest:
