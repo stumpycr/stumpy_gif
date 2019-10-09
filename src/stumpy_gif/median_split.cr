@@ -13,9 +13,9 @@ module StumpyGIF::MedianSplit
     split(unique_colors.to_a).map do |split_colors|
       min, max = MedianSplit.min_max(split_colors)
       color = RGBA.new(
-        min.r + (max.r - min.r) / 2,
-        min.g + (max.g - min.g) / 2,
-        min.b + (max.b - min.b) / 2,
+        min.r + (max.r - min.r) // 2,
+        min.g + (max.g - min.g) // 2,
+        min.b + (max.b - min.b) // 2,
         UInt16::MAX
       )
     end
@@ -41,7 +41,7 @@ module StumpyGIF::MedianSplit
     end
 
     n = list.size
-    half = n / 2
+    half = n // 2
 
     if depth == 0 || n == 2
       result << sorted[0...half]
