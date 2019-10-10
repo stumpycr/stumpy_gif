@@ -57,8 +57,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars1.githubusercontent.com/u/2060269?v=4" width="100px;"/><br /><sub><b>Leon</b></sub>](http://leonrische.me)<br /> | [<img src="https://avatars1.githubusercontent.com/u/26842759?v=4" width="100px;"/><br /><sub><b>Sam</b></sub>](https://github.com/Demonstrandum)<br /> | [<img src="https://avatars2.githubusercontent.com/u/11375246?v=4" width="100px;"/><br /><sub><b>Stepan Melnikov</b></sub>](https://github.com/unn4m3d)<br />[💻](https://github.com/stumpycr/stumpy_gif/commits?author=unn4m3d "Code") |
-| :---: | :---: | :---: |
+| [<img src="https://avatars1.githubusercontent.com/u/2060269?v=4" width="100px;"/><br /><sub><b>Leon</b></sub>](http://leonrische.me)<br /> | [<img src="https://avatars1.githubusercontent.com/u/26842759?v=4" width="100px;"/><br /><sub><b>Sam</b></sub>](https://github.com/Demonstrandum)<br /> | [<img src="https://avatars2.githubusercontent.com/u/11375246?v=4" width="100px;"/><br /><sub><b>Stepan Melnikov</b></sub>](https://github.com/unn4m3d)<br />[💻](https://github.com/stumpycr/stumpy_gif/commits?author=unn4m3d "Code") | [<img src="https://avatars1.githubusercontent.com/u/1196822?v=4" width="100px;"/><br /><sub><b>Dmitry Bochkarev</b></sub>](https://github.com/DmitryBochkarev)<br />[💻](https://github.com/stumpycr/stumpy_gif/commits?author=DmitryBochkarev "Code") |
+| :---: | :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
